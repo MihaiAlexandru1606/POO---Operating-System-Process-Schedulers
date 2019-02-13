@@ -1,0 +1,84 @@
+-----------------------------        POO         ------------------------------
+
+Tema 1: Operating System Process Schedulers
+Nume : Niculescu
+Prenume : Mihai Alexandru
+Grupa : 325CB
+Sistem de operare : Ubuntu 16.04 LTS 64bit && Windows 10 64bit
+Editor : Eclipse Oxygen Java
+
+-------------------------------------------------------------------------------
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Structura temei <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+.
+├── checker.jar
+├── Makefile
+├── README
+├── script.sh
+├── src
+│   ├── cache
+│   │   ├── Cache.java
+│   │   ├── LfuCache.java
+│   │   ├── LruCache.java
+│   │   └── NoCache.java
+│   ├── io
+│   │   ├── HomeworkReader.java
+│   │   ├── HomeworkWriter.java
+│   │   ├── ProblemData.java
+│   │   └── ProcessStructure.java
+│   ├── Main.java
+│   ├── process
+│   │   ├── CheckPrime.java
+│   │   ├── Cube.java
+│   │   ├── Factorial.java
+│   │   ├── Fibonacci.java
+│   │   ├── NextPrime.java
+│   │   ├── Process.java
+│   │   ├── Sqrt.java
+│   │   └── Square.java
+│   └── scheduler
+│       ├── RandomScheduler.java
+│       ├── RoundRobinScheduler.java
+│       ├── Scheduler.java
+│       └── WeightedScheduler.java
+├── Tema1_POO_CB.pdf
+└── tests
+    ├── input
+    └── ref
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    Ficeare proces( CheckPrime, NextPrime, etc. ) implementeaza interfata 
+Proceess. Clasa abstaracta Scheduler este "modelul" pentru fiecare planificator
+ de procese. Atributele cache este de tipul interfatei Cache si primeste 
+referinta catre  tipul cache-ului folosit. Atributele process este tipul Process,
+astfel pentru fiecare proces rulat , atributul va avea o referinta catre un
+obiect de tipul procesului, exemple daca rulam procesul CheckPrime, in process 
+se va afla o referinta catre un obiect de tipul CheckPrime, dupa aceia daca 
+urmatorul proces este Sqtr, in "variabila" proces se va afla o refenta catre 
+un obiect de tipul Sqrt. Metodele typeProcess si typeCache returnaza o refenta 
+catre un obiect cu acelasi nume ca si stringul primit ca argument. Pentru 
+RandomScheduler se selecteaza random indeicele procesului ce o sa fie rulat.
+Pentru RoundRobinScheduler se selecteaza in ordiene fiecare proces, si se 
+ruleaza( de aceia este i % processes.lenght() ).
+Planificatorul WeightedScheduler foloseste cotele impartite la cmmdc al
+vectorului de cote initiale ( vectorul weight ), un proces este exectat daca
+weight[j] > ( order - ( weight[0] + weight[1] + ...+ weight[j-1 ] ), unde  
+order = i % ( weight[0] + weight[1] + ...+ weight[n] ).
+ Exemplu pentru CheckPrime, 30; NextPrime, 40; Cube, 50; weight[] va fi
+weight[0] = 3( pt CheckPrime ), weight[1] = 4( pt NextPrime ), weight[2] = 5
+(pt Cube ). Daca order < 3, atunci se executa CheckPrime, daca 3 <= order < 8
+se ruleaza NextPrime( 0 <= order - 3 (weight[0]) < 5). Pt 8 <= order < 13 
+procesul rulat este Cube( 0 <= order - 7 ( weight[0] + weight[1] < 6). 
+    Cache este interfata pentru tipurile de cache. LfuCache si LruCache
+folosest clase interne pentru structura cache-ului si compare. Pentru eliminare
+ se sorteaza vectorul de structuri pentru fiecare cache si se supra-scrie
+primul element (indicele 0), deoarce cel primul element va fi cel cu cea mai 
+frecventa de utilizare sau cel mai vechi. Stiu ca pentru eliminare, puteam doar
+sa caut frecventa de utilizare sau cel mai vechi, sa pastrez indeicele
+ si sa-l suprascriu.
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
